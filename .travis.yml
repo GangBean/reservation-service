@@ -39,9 +39,9 @@ deploy:
     secret_access_key: $AWS_SECRET_KEY
     bucket: reservation-service-build
     key: reservation-service.zip
-    bundle-type: zip
+    bundle_type: zip
     application: reservation-service
-    deployment-group: reservation-service-group
+    deployment_group: reservation-service-group
     region: ap-northeast-2
     wait-until-deployed: true
 
