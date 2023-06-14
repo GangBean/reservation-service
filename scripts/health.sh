@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-ABSPATH=$(readlink -f $0)
-ABSDIR=$(dirname $ABSPATH)
-source ${ABSDIR}/profile.sh
-source ${ABSDIR}/switch.sh
+ABSPATH=$(readlink -f $0) # 현재 실행중인 스크립트의 절대 경로
+ABSDIR=$(dirname $ABSPATH) # 디렉토리 추출
+source ${ABSDIR}/profile.sh # profiㅣe.sh 임포트
+source ${ABSDIR}/switch.sh # switch.sh 임포트
 
-IDLE_PORT=$(find_idle_port)
+IDLE_PORT=$(find_idle_port) #
 
 echo "> Health Check Start!"
 echo "> IDLE_PORT: $IDLE_PORT"

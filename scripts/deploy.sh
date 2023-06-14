@@ -3,6 +3,10 @@
 REPOSITORY=/home/ec2-user/app/gangbean/deploy
 PROJECT_NAME=reservation-service
 
+echo "> NginX 실행"
+sudo systemctl start nginx
+sleep 5
+
 echo "> Build 파일 복사"
 
 cp $REPOSITORY/zip/*.jar $REPOSITORY/
