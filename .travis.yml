@@ -28,6 +28,8 @@ deploy:
     acl: private
     local_dir: deploy
     wait-until-deployed: true
+    on:
+      all_branches: true # error: Skipping a deployment with the s3 provider because this branch is not permitted: main
 
 # CI 실행 완료 시 메일로 알람
 notifications:
