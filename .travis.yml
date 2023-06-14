@@ -31,6 +31,17 @@ deploy:
     on:
       all_branches: true # error: Skipping a deployment with the s3 provider because this branch is not permitted: main
 
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: reservation-service
+    key: reservation-service.zip
+    bundle-type: zip
+    application: reservation-service
+    deployment-group: reservation-service-group
+    region: ap-northeast-2
+    wait-until-deployed: true
+
 # CI 실행 완료 시 메일로 알람
 notifications:
   email:
