@@ -33,8 +33,7 @@ deploy:
     local_dir: deploy
     wait-until-deployed: true
     on:
-      all_branches: true # error: Skipping a deployment with the s3 provider because this branch is not permitted: main
-
+      all_branches: main # error: Skipping a deployment with the s3 provider because this branch is not permitted: main
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
