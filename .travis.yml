@@ -23,17 +23,17 @@ before_deploy:
   - mv before-deploy/before-deploy.zip deploy/reservation-service.zip
 
 deploy:
-#  - provider: s3
-#    access_key_id: $AWS_ACCESS_KEY
-#    secret_access_key: $AWS_SECRET_KEY
-#    bucket: reservation-service-build
-#    region: ap-northeast-2
-#    skip_cleanup: true
-#    acl: private
-#    local_dir: deploy
-#    wait-until-deployed: true
-#    on:
-#      branch: main # error: Skipping a deployment with the s3 provider because this branch is not permitted: main
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: reservation-service-build
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy
+    wait-until-deployed: true
+    on:
+      branch: main # error: Skipping a deployment with the s3 provider because this branch is not permitted: main
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
