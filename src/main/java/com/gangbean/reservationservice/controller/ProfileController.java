@@ -13,7 +13,7 @@ public class ProfileController {
 
     private final Environment environment;
 
-    @GetMapping
+    @GetMapping("/profile")
     public String profile() {
         List<String> profiles = Arrays.asList(environment.getActiveProfiles());
         List<String> prodProfiles = Arrays.asList("prod", "prod1", "prod2");
