@@ -6,6 +6,19 @@ import spock.lang.Unroll
 class RoleTest extends Specification {
 
     @Unroll
+    def "역할은 본인이 회원 인지를 판단해줍니다"(Role role, boolean expected) {
+        expect:
+        role.isMember() == expected
+
+        where:
+        role | expected
+        Role.MEMBER | true
+        Role.SELLER | true
+        Role.GUEST | false
+        Role.MANAGER | false
+    }
+
+    @Unroll
     def "역할은 본인이 매니저 인지를 판단해줍니다"(Role role, boolean expected) {
         expect:
         role.isManager() == expected
@@ -13,6 +26,7 @@ class RoleTest extends Specification {
         where:
         role | expected
         Role.GUEST | false
+        Role.SELLER | false
         Role.MEMBER | false
         Role.MANAGER | true
     }
@@ -27,5 +41,6 @@ class RoleTest extends Specification {
         "GUEST" | Role.GUEST
         "MEMBER" | Role.MEMBER
         "MANAGER" | Role.MANAGER
+        "SELLER" | Role.SELLER
     }
 }

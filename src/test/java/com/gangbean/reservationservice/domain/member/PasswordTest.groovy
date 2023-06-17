@@ -12,19 +12,29 @@ class PasswordTest extends Specification {
         cipher = new CipherSha512();
     }
 
-    def "비밀번호는 입력된 문자열에 대해 동일여부를 판단합니다"(String origin, boolean expected) {
+    def "다른 Cipher와 같은 문자열을 갖는 비밀번호는 다른 비밀번호입니다"() {
+        expect:
+        new Password((plain) -> plain, "abc") != new Password((plain) -> plain.reverse(), "abc")
+    }
+
+    def "같은 Cipher와 같은 문자열을 갖는 비밀번호는 같은 비밀번호입니다"() {
+        expect:
+        new Password(cipher, "abc") == new Password(cipher, new String("abc"))
+    }
+
+    def "비밀번호는 입력된 문자열과 알고리즘에 대해 동일여부를 판단합니다"(String plain, boolean expected) {
         given:
-        String input = "abcd12345"
-        Password password = new Password(origin)
+        String input = cipher.encryption("abcd12345")
+        Password password = new Password(cipher, input)
 
         when:
-        boolean isSame = password.isSame(input)
+        boolean isSame = password.isSame(plain)
 
         then:
         isSame == expected
 
         where:
-        origin | expected
+        plain | expected
         "abcd12345" | true
         "aaa123455" | false
     }
@@ -32,7 +42,7 @@ class PasswordTest extends Specification {
     @Unroll
     def "비밀번호는 널이거나 빈 문자열이면 안됩니다"(String input) {
         when:
-        new Password(input)
+        new Password(cipher, input)
 
         then:
         RuntimeException e = thrown()
