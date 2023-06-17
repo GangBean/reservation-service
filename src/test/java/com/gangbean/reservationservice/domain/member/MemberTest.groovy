@@ -5,6 +5,14 @@ import spock.lang.Specification
 
 class MemberTest extends Specification {
 
+    public static final TEST_MEMBER = new Member.MemberBuilder()
+            .loginId("abc")
+            .password(new Password(CipherSha512.getInstance(), "abc123"))
+            .email(new Email("email@naver.com"))
+            .name("홍길동")
+            .role(Role.MEMBER)
+            .build()
+
     @Shared Member member
     @Shared String name = "이름"
     @Shared String email = "email"

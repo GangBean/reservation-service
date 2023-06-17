@@ -7,6 +7,8 @@ import lombok.Builder;
 @Builder
 public class Password {
 
+    public static final String VALID_PATTERN = "^[0-9a-zA-Z!@#$%^&]{8,20}$";
+
     private final Cipher cipher;
     private final String password;
 

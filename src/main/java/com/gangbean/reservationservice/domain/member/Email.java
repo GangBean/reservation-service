@@ -4,6 +4,8 @@ import java.util.Objects;
 
 public class Email {
 
+    public static final String VALID_PATTERN = "^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
+
     private final String email;
 
     public Email(String email) {
