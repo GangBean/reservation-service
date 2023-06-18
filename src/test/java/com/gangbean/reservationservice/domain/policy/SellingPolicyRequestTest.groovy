@@ -4,6 +4,10 @@ import spock.lang.Specification
 
 class SellingPolicyRequestTest extends Specification {
 
+    public static final SellingPolicyRequest TEST_REQUEST = new SellingPolicyRequest.SellingPolicyRequestBuilder()
+        .requesterId(1L)
+        .build()
+
     def "판매권한요청은 생성시 요청중입니다"() {
         given:
         def request = new SellingPolicyRequest(1L)
