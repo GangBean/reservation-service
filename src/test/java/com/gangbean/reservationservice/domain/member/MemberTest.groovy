@@ -21,7 +21,7 @@ class MemberTest extends Specification {
     @Shared Role role = Role.MEMBER
 
     def setup() {
-        member = new Member(loginId, new Password(CipherSha512.getInstance(), encrypt), new Email(email), name, role)
+        member = new Member.MemberBuilder().loginId(loginId).password(new Password(CipherSha512.getInstance(), encrypt)).email(new Email(email)).name(name).role(role).build()
     }
 
     def "판매자 권한으로 변경합니다"() {
@@ -79,6 +79,6 @@ class MemberTest extends Specification {
 
     def "멤버는 같은 이름, 이메일, 패스워드, 로그인아이디를 가지면 같은 멤버입니다"() {
         expect:
-        member == new Member(loginId, new Password(CipherSha512.getInstance(), encrypt), new Email(email), name, role)
+        member == new Member.MemberBuilder().loginId(loginId).password(new Password(CipherSha512.getInstance(), encrypt)).email(new Email(email)).name(name).role(role).build()
     }
 }

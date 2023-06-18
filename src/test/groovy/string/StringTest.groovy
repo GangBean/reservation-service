@@ -1,5 +1,6 @@
 package string
 
+
 import spock.lang.Specification
 
 class StringTest extends Specification {

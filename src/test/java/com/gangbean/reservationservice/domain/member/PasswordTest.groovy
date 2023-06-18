@@ -14,12 +14,15 @@ class PasswordTest extends Specification {
 
     def "다른 Cipher와 같은 문자열을 갖는 비밀번호는 다른 비밀번호입니다"() {
         expect:
-        new Password((plain) -> plain, "abc") != new Password((plain) -> plain.reverse(), "abc")
+        new Password.PasswordBuilder().cipherName((plain -> plain).getClass().getName()).password("abc")
+                != new Password.PasswordBuilder().cipherName((plain -> plain.reverse()).getClass().getName()).password("abc")
     }
 
-    def "같은 Cipher와 같은 문자열을 갖는 비밀번호는 같은 비밀번호입니다"() {
+
+    def "같은 CipherName과 같은 문자열을 갖는 비밀번호는 같은 비밀번호입니다"() {
         expect:
-        new Password(cipher, "abc") == new Password(cipher, new String("abc"))
+        new Password.PasswordBuilder().cipherName(CipherSha512.getName()).password("abc").build()
+                == new Password.PasswordBuilder().cipherName(CipherSha512.getName()).password(new String("abc")).build()
     }
 
     def "비밀번호는 입력된 문자열과 알고리즘에 대해 동일여부를 판단합니다"(String plain, boolean expected) {

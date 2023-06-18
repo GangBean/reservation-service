@@ -2,24 +2,48 @@ package com.gangbean.reservationservice.domain.member;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @Builder
-@RequiredArgsConstructor
+@AllArgsConstructor
+@Entity
 public class Member {
 
-    private final String loginId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private final Password password;
+    @Column(nullable = false, unique = true)
+    private String loginId;
 
-    private final Email email;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "password_id")
+    private Password password;
 
-    private final String name;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "email_id")
+    private Email email;
+
+    @Column(nullable = false)
+    private String name;
 
     @NonNull
+    @Enumerated(value = EnumType.STRING)
     private Role role;
+
+    public Member() {}
 
     public boolean isPasswordMatch(String plain) throws NoSuchAlgorithmException {
         return password.isSame(plain);
@@ -39,6 +63,14 @@ public class Member {
 
     public boolean isSeller() {
         return role.isSeller();
+    }
+
+    public Long id() {
+        return id;
+    }
+
+    public Email email() {
+        return email;
     }
 
     @Override
